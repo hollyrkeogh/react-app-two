@@ -7,15 +7,21 @@ import "./App.css";
 function App() {
   //variables 
   const [todos, setTodos] = useState([
-    "Learn React",
-    "Feed Dog",
-    "Water Grass",
-    "Drink Water"
+    {text: "Learn React", isCompleted: false},
+    {text: "Feed Dog", isCompleted: false},
+    {text: "Water Grass", isCompleted: false},
+    {text: "Drink Water", isCompleted: false },
   ])
 
   //methods 
   const addTodo = (text) => {
-    const newTodos = [...todos, text]
+    const newTodos = [...todos, { text }]
+    setTodos(newTodos)
+  }
+
+  const completeTodo = (index) => {
+    const newTodos = [...todos]
+    newTodos[index].isCompleted = true
     setTodos(newTodos)
   }
 
@@ -25,7 +31,12 @@ function App() {
     <div className="todo-list">
       <h1>My To Do list</h1>
         {todos.map((todo, index) => (
-        <TodoItem todo={todo} key={index} />
+        <TodoItem 
+          todo={todo} 
+          key={index} 
+          index={index} 
+          completeTodo={completeTodo}
+        />
       ))}
       <TodoForm addTodo={addTodo} />
     </div>
